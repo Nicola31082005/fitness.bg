@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fitness.bg - Domain For Sale</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      background: #0a0a1a;
+      color: #fff;
+    }
+
+    #pixi-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .overlay {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .badge {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50px;
+      padding: 8px 24px;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    .domain-name {
+      font-size: clamp(48px, 10vw, 96px);
+      font-weight: 800;
+      background: linear-gradient(135deg, #00d4ff, #7b2ff7, #ff2d95);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+
+    .tagline {
+      font-size: clamp(16px, 3vw, 24px);
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 48px;
+      max-width: 500px;
+    }
+
+    .contact-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 32px;
+      backdrop-filter: blur(20px);
+      max-width: 440px;
+      width: 100%;
+    }
+
+    .contact-box h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .contact-box p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .input-group input {
+      flex: 1;
+      padding: 14px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .input-group input::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .input-group input:focus {
+      border-color: #7b2ff7;
+    }
+
+    .input-group button {
+      padding: 14px 24px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #7b2ff7, #ff2d95);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.3s;
+      white-space: nowrap;
+    }
+
+    .input-group button:hover {
+      opacity: 0.85;
+    }
+
+    .success-msg {
+      display: none;
+      color: #00d4ff;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .input-group {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="pixi-canvas"></canvas>
+
+  <div class="overlay">
+    <div class="badge">Premium Domain</div>
+    <h1 class="domain-name">fitness.bg</h1>
+    <p class="tagline">This premium domain is available for purchase. Make it yours today.</p>
+
+    <div class="contact-box">
+      <h3>Interested?</h3>
+      <p>Leave your email and we'll get back to you with pricing details.</p>
+      <form id="contact-form">
+        <div class="input-group">
+          <input type="email" id="email" placeholder="your@email.com" required />
+          <button type="submit">Send</button>
+        </div>
+      </form>
+      <p class="success-msg" id="success-msg">Thanks! We'll be in touch soon.</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.js"></script>
+  <script>
+    (async () => {
+      const app = new PIXI.Application();
+      await app.init({
+        canvas: document.getElementById('pixi-canvas'),
+        resizeTo: window,
+        backgroundAlpha: 0,
+        antialias: true,
+      });
+
+      const particles = [];
+      const PARTICLE_COUNT = 60;
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        const g = new PIXI.Graphics();
+        const radius = Math.random() * 3 + 1;
+        const color = [0x00d4ff, 0x7b2ff7, 0xff2d95][Math.floor(Math.random() * 3)];
+
+        g.circle(0, 0, radius);
+        g.fill({ color, alpha: Math.random() * 0.5 + 0.2 });
+
+        g.x = Math.random() * window.innerWidth;
+        g.y = Math.random() * window.innerHeight;
+
+        app.stage.addChild(g);
+
+        particles.push({
+          sprite: g,
+          speedX: (Math.random() - 0.5) * 0.6,
+          speedY: (Math.random() - 0.5) * 0.6,
+          baseAlpha: g.alpha,
+          phase: Math.random() * Math.PI * 2,
+        });
+      }
+
+      app.ticker.add((ticker) => {
+        const time = ticker.lastTime * 0.001;
+        for (const p of particles) {
+          p.sprite.x += p.speedX;
+          p.sprite.y += p.speedY;
+          p.sprite.alpha = p.baseAlpha * (0.5 + 0.5 * Math.sin(time + p.phase));
+
+          if (p.sprite.x < 0) p.sprite.x = window.innerWidth;
+          if (p.sprite.x > window.innerWidth) p.sprite.x = 0;
+          if (p.sprite.y < 0) p.sprite.y = window.innerHeight;
+          if (p.sprite.y > window.innerHeight) p.sprite.y = 0;
+        }
+      });
+    })();
+
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      console.log('Contact email:', email);
+      document.getElementById('email').value = '';
+      document.getElementById('success-msg').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('success-msg').style.display = 'none';
+      }, 4000);
+    });
+  </script>
+</body>
+</html>
