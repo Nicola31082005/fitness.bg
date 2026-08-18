@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init && git add index.html && git commit -m \"Initial commit: fitness.bg domain for sale page with Pixi.js\n\n- Animated particle background using Pixi.js v8\n- Domain for sale landing page with email contact form\n- Responsive design, Vercel-ready static site\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\")",
+      "Bash(open /Users/macbookpro/Documents/Github/fitness.bg/index.html)",
+      "Bash(gh auth status)"
+    ]
+  }
+}
