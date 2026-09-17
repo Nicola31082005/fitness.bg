@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>fitness.bg - Domain For Sale</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { overflow: hidden; background: #0b0b0f; }
-    canvas { display: block; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      overflow: hidden;
+      background: #0b0b0f;
+    }
+
+    canvas {
+      display: block;
+    }
   </style>
 </head>
+
 <body>
   <script src="https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.js"></script>
   <script>
@@ -163,10 +176,32 @@
       email.cursor = 'pointer';
       email.on('pointerover', () => { email.style.fill = 0xffffff; });
       email.on('pointerout', () => { email.style.fill = 0xcccccc; });
-      email.on('pointertap', () => {
-        window.location.href = 'mailto:contact@fitness.bg';
+      email.on('pointerdown', () => {
+        // start email client
+        window.location.href = 'mailto:ivodimitrov@mail.bg';
       });
-      content.addChild(email);
+
+      const email2 = new PIXI.Text({
+        text: 'ivo.tolev@gmail.com',
+        style: {
+          fontFamily: 'Arial, Helvetica, sans-serif',
+          fontSize: 18,
+          fontWeight: '400',
+          fill: 0xcccccc,
+        },
+      });
+      email2.anchor.set(0.5);
+      email2.y = 175;
+      email2.eventMode = 'static';
+      email2.cursor = 'pointer';
+      email2.on('pointerover', () => { email2.style.fill = 0xffffff; });
+      email2.on('pointerout', () => { email2.style.fill = 0xcccccc; });
+      email2.on('pointerdown', () => {
+        // start email writing
+        window.location.href = 'mailto:ivo.tolev@gmail.com';
+      });
+
+      content.addChild(email, email2);
 
       // Fade in
       content.alpha = 0;
@@ -191,4 +226,5 @@
     })();
   </script>
 </body>
+
 </html>
